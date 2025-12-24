@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Web Development Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(to right, #eef2f3, #ffffff);
+            color: #222;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        /* ===== NAVBAR (FLEXBOX) ===== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: #0a0a0a;
+            color: white;
+        }
+
+        nav h1 {
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: #00c6ff;
+        }
+
+        /* ===== GRID LAYOUT ===== */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* ===== ABOUT ===== */
+        #about p {
+            line-height: 1.7;
+            color: #444;
+        }
+
+        /* ===== CONTACT FORM ===== */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            margin-top: 6px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        button {
+            margin-top: 18px;
+            padding: 12px;
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .error {
+            font-size: 13px;
+            color: red;
+        }
+
+        /* ===== SKILL TO-DO LIST ===== */
+        .todo-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .todo-controls input,
+        .todo-controls select {
+            flex: 1;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f5f9;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .todo-list button {
+            background: crimson;
+            padding: 6px 10px;
+            font-size: 13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+    <h1>Web Dev Project</h1>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#skills">Skills</a></li>
+    </ul>
+</nav>
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+    <!-- ABOUT -->
+    <section id="about" class="card">
+        <h2>About This Project</h2>
+        <p>
+            This interactive web page is designed to enhance skills in HTML, CSS, and
+            JavaScript. It demonstrates responsive layouts using Flexbox and CSS Grid,
+            form validation using JavaScript, and DOM manipulation through a dynamic
+            skill-based to-do list.
+        </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card">
+        <h2>Contact Form</h2>
+        <form onsubmit="return validateForm()">
+            <label>Name</label>
+            <input type="text" id="name">
+            <span class="error" id="nameError"></span>
+
+            <label>Email</label>
+            <input type="email" id="email">
+            <span class="error" id="emailError"></span>
+
+            <label>Message</label>
+            <textarea id="message"></textarea>
+            <span class="error" id="messageError"></span>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- SKILL TO-DO LIST -->
+    <section id="skills" class="card">
+        <h2>Skill To-Do List</h2>
+
+        <div class="todo-controls">
+            <select id="skillSelect">
+                <option value="">Select a Skill</option>
+                <option>Artificial Intelligence</option>
+                <option>Machine Learning</option>
+                <option>Web Developer</option>
+                <option>Software Developer</option>
+                <option>Data Science</option>
+                <option>Cyber Security</option>
+                <option>Cloud Computing</option>
+                <option>DevOps Engineer</option>
+                <option>Mobile App Developer</option>
+                <option>UI / UX Designer</option>
+            </select>
+
+            <input type="text" id="customSkill" placeholder="Or enter custom skill">
+        </div>
+
+        <button onclick="addSkill()">Add Skill</button>
+
+        <ul class="todo-list" id="skillList"></ul>
+    </section>
+
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    function validateForm() {
+        let valid = true;
+
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let message = document.getElementById("message").value.trim();
+
+        document.getElementById("nameError").textContent = "";
+        document.getElementById("emailError").textContent = "";
+        document.getElementById("messageError").textContent = "";
+
+        if (name === "") {
+            document.getElementById("nameError").textContent = "Name is required";
+            valid = false;
+        }
+
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (email === "") {
+            document.getElementById("emailError").textContent = "Email is required";
+            valid = false;
+        } else if (!email.match(emailPattern)) {
+            document.getElementById("emailError").textContent = "Invalid email format";
+            valid = false;
+        }
+
+        if (message === "") {
+            document.getElementById("messageError").textContent = "Message is required";
+            valid = false;
+        }
+
+        if (valid) {
+            alert("Message sent successfully!");
+        }
+
+        return valid;
+    }
+
+    function addSkill() {
+        let select = document.getElementById("skillSelect");
+        let custom = document.getElementById("customSkill").value.trim();
+        let skill = custom || select.value;
+
+        if (skill === "") return;
+
+        let li = document.createElement("li");
+        li.textContent = skill;
+
+        let btn = document.createElement("button");
+        btn.textContent = "Remove";
+        btn.onclick = () => li.remove();
+
+        li.appendChild(btn);
+        document.getElementById("skillList").appendChild(li);
+
+        select.value = "";
+        document.getElementById("customSkill").value = "";
+    }
+</script>
+
+</body>
+</html>
